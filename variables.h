@@ -7,6 +7,4 @@ typedef struct{
     
 }Position;
 
-
-
 #endif

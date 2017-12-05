@@ -2,7 +2,7 @@
 #include <GL/glut.h>
 #include "scene.h"
 #include "variables.h"
-
+#include "light.h"
 /* Dimenzije prozora */
 static int window_width, window_height;
 
@@ -75,10 +75,11 @@ static void on_display(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(
-            4.77, 1.95, 4.77,
+            4.77, 1.95, -4.77,
             0, 1.95 , 0,
             0, 1, 0
         );
+    set_light();
     draw_hall();
     draw_basket();
 
