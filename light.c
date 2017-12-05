@@ -7,9 +7,9 @@ void set_light(){
     
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-    glShadeModel(GL_FLAT);
+    glShadeModel(GL_SMOOTH);
     /* Pozicija svetla (u pitanju je direkcionalno svetlo). */
-    GLfloat light_position[] = { 40, 7, 0, 0 };
+    GLfloat light_position[] = { 19, 5, -9, 0 };
 
     /* Ambijentalna boja svetla. */
     GLfloat light_ambient[] = { 0, 0, 0, 1 };
