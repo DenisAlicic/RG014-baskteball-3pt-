@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <GL/glut.h>
+#include "scene.h"
+#include "variables.h"
 
 /* Dimenzije prozora */
 static int window_width, window_height;
@@ -57,80 +59,30 @@ static void on_display(void)
 {
     /* Brise se prethodni sadrzaj prozora. */
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     /* Podesava se viewport. */
     glViewport(0, 0, window_width, window_height);
 
     /* Podesava se projekcija. */
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    /* ne znam zasto ne radi z buffer sa ovim*/
-    /*gluPerspective(
+    gluPerspective(
             60,
             window_width/(float)window_height,
-            -20, 0);*/
-    /* a sa ovim radi,mozda i nije do z baffera*/
-    glFrustum(-1, 1, -1, 1, 1, 10);
+            -40, 0);
 
     /* Podesava se tacka pogleda. */
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(
-            4.77, 1.95,0.1,
+            4.77, 1.95, 4.77,
             0, 1.95 , 0,
             0, 1, 0
         );
-    
-    
-    /*iscrtavanje daljeg stuba*/
-    
-    glTranslatef(0.5,3.05/2,-2);
-    glScalef(0.2,3.05,0.2);
-    glColor3f(1,0,0);
-    glutSolidCube(1);
-    /* ponistavanje transformacija*/
-    glScalef(1/0.2,1/3.05,1/0.2);
-    glTranslatef(-0.5,-3.05/2,2);
-    
-    
-    /*iscrtavanje blizeg stuba*/
-    
-    glTranslatef(-0.5,3.05/2,-2);
-    glScalef(0.2,3.05,0.2);
-    glColor3f(0,0,1);
-    glutSolidCube(1);
-    /* ponistavanje transformacija*/
-    glScalef(1/0.2,1/3.05,1/0.2);
-    glTranslatef(0.5,-3.05/2,2);
-    
-    /*iscrtavanja dalje paralelne sipke */
-    
-    glTranslatef(0.5,2.95,-1.4);
-    glScalef(0.2,0.2,1);
-    glColor3f(1,0,0);
-    glutSolidCube(1);
-    glScalef(1/0.2,1/0.2,1/1);
-    glTranslatef(-0.5,-2.95,1.4);
-    
-      /*iscrtavanja blize paralelne sipke */
+    draw_hall();
+    draw_basket();
 
-    glTranslatef(-0.5,2.95,-1.4);
-    glScalef(0.2,0.2,1);
-    glColor3f(0,0,1);
-    glutSolidCube(1);
-    glScalef(1/0.2,1/0.2,1/1);
-    glTranslatef(0.5,-2.95,1.4);
-    
-    /* Tabla   */
-    
-    glTranslatef(0,3.05,-0.7);
-    glScalef(2,2,0.2);
-    glColor3f(0,1,0);
-    glutSolidCube(1);
-    glScalef(1/2,1/2,1/0.2);
-    glTranslatef(0,-3.05,0.7);
-    
-    
-    
+   
     
 
     /* Nova slika se salje na ekran. */
