@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 #include "scene.h"
+#include <math.h>
 #include "variables.h"
 #include "light.h"
 /* Dimenzije prozora */
@@ -69,13 +70,17 @@ static void on_display(void)
     gluPerspective(
             60,
             window_width/(float)window_height,
-            -40, 0);
+            5, -30);
 
     /* Podesava se tacka pogleda. */
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    Position p;
+    p.x=4.77;
+    p.z=sqrt(6.75*6.75-p.x*p.x);
+    p.y=1.95;
     gluLookAt(
-            4.77, 1.95, 4.77,
+            p.x, p.y, -p.z,
             0, 1.95 , 0,
             0, 1, 0
         );
