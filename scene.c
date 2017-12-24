@@ -5,23 +5,24 @@
 
 void draw_basket(){
     
-    
      /*
-+     * Kreira se kocka(stub1) i primenjuje se geometrijska transformacija na
-+     * njega.
-+     */
+     * Kreira se kocka(stub1) i primenjuje se geometrijska transformacija na
+     * njega.
+     */
     glPushMatrix();
     glColor3f(0, 0, 1);
     glTranslatef(-2, 1.525, -0.3);
     glScalef(.2, 3.05, .2);
+    /* Koeficijenti difuzne refleksije materijala. */
+    
     glutSolidCube(1);
     /* ponistavanje transformacija*/
     glPopMatrix();
     
     /*
-+     * Kreira se kocka(stub2) i primenjuje se geometrijska transformacija na
-+     * njega.
-+     */
+     * Kreira se kocka(stub2) i primenjuje se geometrijska transformacija na
+     * njega.
+     */
     glPushMatrix();
     glColor3f(0, 1, 0);
     glTranslatef(-2, 1.525, 0.3);
@@ -47,10 +48,18 @@ void draw_basket(){
     
     /*tabla*/
     glPushMatrix();
+    
     glColor3f(0.5,0.5,0);
-    glTranslatef(-1,3.05,0);
-    glScalef(0.2,1.2,1.2);
+    glTranslatef(-1,3.50,0);
+    glScalef(0.2,1.5,1.5);
+    
     glutSolidCube(1);
+    glPopMatrix();
+    /* Obruc */
+    glPushMatrix();
+    glTranslatef(0,3.05,0);
+    glRotatef(90,1,0,0);
+    glutSolidTorus(0.05,0.50,50,30);
     glPopMatrix();
 }
 

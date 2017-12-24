@@ -76,7 +76,7 @@ static void on_display(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     Position p;
-    p.x=4.77;
+    p.x=6.75;
     p.z=sqrt(6.75*6.75-p.x*p.x);
     p.y=1.95;
     gluLookAt(
