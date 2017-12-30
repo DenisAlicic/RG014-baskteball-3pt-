@@ -1,6 +1,6 @@
 PROGRAM = 3pt
 CC = gcc
-CFLAGS  = -g -Wall -I/usr/X11R6/include -I/usr/pkg/include
+CFLAGS  = -c -Wall -I/usr/X11R6/include -I/usr/pkg/include
 LDFLAGS = -L/usr/X11R6/lib -L/usr/pkg/lib
 LDLIBS  = -lglut -lGLU -lGL -lm
 

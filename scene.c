@@ -4,7 +4,14 @@
 #include "scene.h"
 #include "variables.h"
 
+extern int animation_ongoing;
+extern float x_t;
+extern float y_t;
+extern float t;
+extern float angle;
+extern float v0;
 extern Position p_of_camera;
+extern int z_positive;
 void draw_basket(){
     
 
@@ -15,6 +22,8 @@ void draw_basket(){
      * Kreira se kocka(stub1) i primenjuje se geometrijska transformacija na
      * njega.
      */
+    glPushMatrix();
+    glTranslatef(0.3,0,0);
     glPushMatrix();
     //glColor3f(0, 0, 1);
     glMaterialfv(GL_FRONT,GL_AMBIENT,blue_color);
@@ -63,14 +72,14 @@ void draw_basket(){
     glutSolidCube(1);
     glPopMatrix();
     
-    /*tabla*/
+    /* Table*/
     glPushMatrix();
     glMaterialfv(GL_FRONT,GL_AMBIENT,white_color);
     glMaterialfv(GL_FRONT,GL_SPECULAR,white_color);
     glMaterialfv(GL_FRONT,GL_DIFFUSE,white_color);
     glColor3f(0.5,0.5,0);
     glTranslatef(-1,3.50,0);
-    glScalef(0.2,1.5,1.5);
+    glScalef(0.2,1.8,1.8);
     
     glutSolidCube(1);
     glPopMatrix();
@@ -84,6 +93,7 @@ void draw_basket(){
     glTranslatef(-0.3,3.05,0);
     glRotatef(90,1,0,0);
     glutSolidTorus(0.05,0.50,50,30);
+    glPopMatrix();
     glPopMatrix();
 }
 
@@ -152,18 +162,62 @@ void set_position_of_camera(int number_of_position){
     
         case 1: p_of_camera.x=0;
                 p_of_camera.z=-6.75;
+                z_positive=1;
                 break;
         case 2: p_of_camera.x=4.77;
                 p_of_camera.z=-4.77;
+                z_positive=1;
                 break;
         case 3: p_of_camera.x=6.75;
                 p_of_camera.z=0;
+                z_positive=1;
                 break;
         case 4: p_of_camera.x=4.77;
                 p_of_camera.z=4.77;
+                z_positive=-1;
                 break;
         case 5: p_of_camera.x=0;
                 p_of_camera.z=6.75;
+                z_positive=-1;
     }
 
+}
+
+void draw_ball(int number_of_position){
+    /* jednacine kosog hica */
+    x_t = -v0*t*cos(angle);
+    y_t = v0*t*sin(angle) - G*t*t/2;
+    
+    
+    /* loptica */
+    glPushMatrix();
+        GLfloat orange_color[]={1, 0.3, 0.3, 1};
+        GLfloat shininess_of_ball = 60;
+        glMaterialfv(GL_FRONT,GL_AMBIENT,orange_color);
+        glMaterialfv(GL_FRONT,GL_DIFFUSE,orange_color);
+        glMaterialfv(GL_FRONT,GL_SPECULAR,orange_color);
+        glMaterialf(GL_FRONT,GL_SHININESS,shininess_of_ball);
+        switch(number_of_position){
+            case 2:
+            case 4:
+                if(animation_ongoing){
+                    glTranslatef(x_t, y_t, -z_positive*x_t);
+                }
+                glTranslatef(p_of_camera.x-1,p_of_camera.y-.2,p_of_camera.z+z_positive);
+                break;
+            case 3:
+                if(animation_ongoing){
+                    glTranslatef(x_t, y_t, 0);
+                }
+                glTranslatef(p_of_camera.x-1,p_of_camera.y-.2,p_of_camera.z);
+                break;
+            case 5:
+            case 1:
+                if(animation_ongoing){
+                    glTranslatef(0, y_t, -x_t*z_positive);
+                }
+                glTranslatef(p_of_camera.x,p_of_camera.y-.2,p_of_camera.z+z_positive);
+        }
+        glutSolidSphere(.3, 50, 50);
+    glPopMatrix();
 }
