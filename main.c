@@ -4,6 +4,10 @@
 #include <math.h>
 #include "variables.h"
 #include "light.h"
+/* Global variables */
+Position p_of_camera;
+int number_of_position=2;
+int animation_ongoing=0;
 /* Dimenzije prozora */
 static int window_width, window_height;
 
@@ -21,7 +25,7 @@ int main(int argc, char **argv)
     /* Kreira se prozor. */
     glutInitWindowSize(600, 600);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow(argv[0]);
+    glutCreateWindow("3pt_contest!");
 
     /* Registruju se callback funkcije. */
     glutKeyboardFunc(on_keyboard);
@@ -29,7 +33,7 @@ int main(int argc, char **argv)
     glutDisplayFunc(on_display);
 
     /* Obavlja se OpenGL inicijalizacija. */
-    glClearColor(0.75, 0.75, 0.75, 0);
+    glClearColor(1, 1, 1, 1);
     glEnable(GL_DEPTH_TEST);
     glLineWidth(2);
 
@@ -46,6 +50,15 @@ static void on_keyboard(unsigned char key, int x, int y)
         /* Zavrsava se program. */
         exit(0);
         break;
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':{
+        number_of_position=key-'0';
+        glutPostRedisplay();
+             }
     }
 }
 
@@ -70,23 +83,21 @@ static void on_display(void)
     gluPerspective(
             60,
             window_width/(float)window_height,
-            5, -30);
+            1, -30);
 
     /* Podesava se tacka pogleda. */
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    Position p;
-    p.x=6.75;
-    p.z=sqrt(6.75*6.75-p.x*p.x);
-    p.y=1.95;
+    set_position_of_camera(number_of_position);
+   
     gluLookAt(
-            p.x, p.y, -p.z,
+            p_of_camera.x, p_of_camera.y, -p_of_camera.z,
             0, 1.95 , 0,
             0, 1, 0
         );
     set_light();
-    draw_hall();
     draw_basket();
+    draw_hall();
 
    
     
