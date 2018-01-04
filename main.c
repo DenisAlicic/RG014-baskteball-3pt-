@@ -142,11 +142,15 @@ static void on_timer(int id)
 {
     if (id != TIMER_ID) return;
 
-    /* animacija se zaustavlja kada lopta padne na zemlju */
-    if(x_t < -5){
+    /* Animation is stopped when ball fals down or x coordinates iz less then 0 */
+    if(((number_of_position == 2 || number_of_position == 4) && x_t < -3.77) || ( y_t + 1.95) < 1 ){
         animation_ongoing = 0;
         t=0;
     }
+    else if(((number_of_position == 1 || number_of_position == 3 || number_of_position == 5) && x_t < -5.75) || (y_t + 1.95) < 1){
+        animation_ongoing = 0;
+        t=0;
+    }  
     else{
          t +=0.02;
     }

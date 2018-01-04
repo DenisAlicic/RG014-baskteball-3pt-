@@ -141,14 +141,14 @@ void draw_hall(){
     GLfloat ambient_coeffs[] = { 0, 0, 0.1, 1 };
 
     /* Koeficijenti difuzne refleksije materijala. */
-    GLfloat diffuse_coeffs[] = { 0, 0.8, 0, 1 };
+    GLfloat diffuse_coeffs[] = { 0.2, 1, 0.2, 1 };
 
     /* Koeficijenti spekularne refleksije materijala. */
     GLfloat specular_coeffs[] = { 0, 0, 0, 0 };
 
     /* Koeficijent glatkosti materijala. */
     GLfloat shininess = 30;
-    GLfloat yellow[] = {1,0.8,0.3,1};
+    GLfloat yellow[] = {0.905, 0.676, 0.306,1};
     
     glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_coeffs);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_coeffs);
@@ -214,6 +214,33 @@ void draw_hall(){
     glVertex3f(25,-0.2,17);
     glEnd();
     glPopMatrix();
+    /* Lines on the floor */
+    glPushMatrix();
+    glDisable(GL_LIGHTING);
+    glColor3f(1,1,1);
+    glLineWidth(4);
+    glBegin(GL_LINE_LOOP);
+    glVertex3f(0,0,9);
+    glVertex3f(0,0,-9);
+    glVertex3f(20,0,-9);
+    glVertex3f(20,0,9);
+    glEnd();
+    glBegin(GL_LINE_LOOP);
+    glVertex3f(0,0,1.5);
+    glVertex3f(0,0,-1.5);
+    glVertex3f(4,0,-1.5);
+    glVertex3f(4,0,1.5);
+    glEnd();
+    glBegin(GL_LINE_LOOP);
+    float v;
+    for(v=0;v<=2*PI;v+=PI/60){
+        glVertex3f(4+1.5*sin(v),0,1.5*cos(v));
+    }
+
+
+    glEnd();
+    glEnable(GL_LIGHTING);
+    glPopMatrix();
 
 
     /* line for 3pt */
@@ -222,7 +249,7 @@ void draw_hall(){
     glLineWidth(4);
     float r=6.75;
     float u;
-    glColor3f(0,0,0);
+    glColor3f(1,1,1);
     glBegin(GL_LINE_LOOP);
     for(u=0;u<=PI;u+=PI/1000){
        glVertex3f(r*sin(u),0,r*cos(u)); 
@@ -265,8 +292,6 @@ void draw_ball(int number_of_position){
     /* equation of projectile motion */
     x_t = -v0*t*cos(angle);
     y_t = v0*t*sin(angle) - G*t*t/2;
-    
-    
     /* ball */
     glPushMatrix();
         GLfloat orange_color[]={1, 0.278, 0.102, 1};
