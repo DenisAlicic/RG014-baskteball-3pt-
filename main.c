@@ -72,7 +72,6 @@ static void on_keyboard(unsigned char key, int x, int y)
     case '3':
     case '4':
     case '5':
-    case '6':
         number_of_position = key -'0';
         glutPostRedisplay();
         break;

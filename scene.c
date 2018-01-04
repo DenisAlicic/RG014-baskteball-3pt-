@@ -25,7 +25,6 @@ void draw_basket(){
     glPushMatrix();
     glTranslatef(0.3,0,0);
     glPushMatrix();
-    //glColor3f(0, 0, 1);
     glMaterialfv(GL_FRONT,GL_AMBIENT,blue_color);
     glMaterialfv(GL_FRONT,GL_SPECULAR,blue_color);
     glMaterialfv(GL_FRONT,GL_DIFFUSE,blue_color);
@@ -41,7 +40,6 @@ void draw_basket(){
      * njega.
      */
     glPushMatrix();
-    //glColor3f(0, 1, 0);
     glMaterialfv(GL_FRONT,GL_AMBIENT,blue_color);
     glMaterialfv(GL_FRONT,GL_SPECULAR,blue_color);
     glMaterialfv(GL_FRONT,GL_DIFFUSE,blue_color);
@@ -52,7 +50,6 @@ void draw_basket(){
     
     /* Kreiranje sipke 1*/
     glPushMatrix();
-    //glColor3f(1,0,0);
     glMaterialfv(GL_FRONT,GL_AMBIENT,blue_color); 
     glMaterialfv(GL_FRONT,GL_SPECULAR,blue_color); 
     glMaterialfv(GL_FRONT,GL_DIFFUSE,blue_color); 
@@ -63,7 +60,6 @@ void draw_basket(){
     
     /* Kreiranje sipke 2*/
     glPushMatrix();
-    //glColor3f(1,0,0);
     glMaterialfv(GL_FRONT,GL_AMBIENT,blue_color); 
     glMaterialfv(GL_FRONT,GL_SPECULAR,blue_color); 
     glMaterialfv(GL_FRONT,GL_DIFFUSE,blue_color); 
@@ -83,7 +79,27 @@ void draw_basket(){
     
     glutSolidCube(1);
     glPopMatrix();
-    /* Obruc */
+    /* Lines on the table */
+    glPushMatrix();
+    glDisable(GL_LIGHTING);
+    glColor3f(0,0,0);
+    glLineWidth(3);
+    glBegin(GL_LINE_LOOP);
+    glVertex3f(-0.89,2.6,0.9);
+    glVertex3f(-0.89,4.4,0.9);
+    glVertex3f(-0.89,4.4,-0.9);
+    glVertex3f(-0.89,2.6,-0.9);
+    glEnd();
+    glBegin(GL_LINE_LOOP);
+    glVertex3f(-0.89,2.8,0.4);
+    glVertex3f(-0.89,3.6,0.4);
+    glVertex3f(-0.89,3.6,-0.4);
+    glVertex3f(-0.89,2.8,-0.4);
+    glEnd();
+    glLineWidth(1);
+    glEnable(GL_LIGHTING);
+    glPopMatrix();
+    /* Hoop */
     glPushMatrix();
     GLfloat shininess_of_table = 40;
     glMaterialfv(GL_FRONT,GL_AMBIENT,orange_color);
@@ -95,6 +111,28 @@ void draw_basket(){
     glutSolidTorus(0.05,0.50,50,30);
     glPopMatrix();
     glPopMatrix();
+    
+    /* Network */
+    glPushMatrix();
+    float u;
+    float h=0.1;
+    glDisable(GL_LIGHTING);
+    glTranslatef(0,2.05,0);
+    glColor3f(0,0,0);
+    float r1=0.45;
+    float r2=0.3;
+    for(u=0;u<=2*PI;u+=PI/8){
+        glBegin(GL_LINES);
+        glVertex3f(r1*cos(u),1,r1*sin(u));
+        glVertex3f(r2*cos(u+PI/8),h,r2*sin(u+PI/8));
+        glEnd();
+        glBegin(GL_LINES);
+        glVertex3f(r1*cos(u+PI/16),1,r1*sin(u+PI/16));
+        glVertex3f(r2*cos(u-PI/8+PI/16),h,r2*sin(u-PI/8+PI/16));
+        glEnd();
+    }
+    glEnable(GL_LIGHTING);
+    glPopMatrix();
 }
 
 void draw_hall(){
@@ -103,13 +141,14 @@ void draw_hall(){
     GLfloat ambient_coeffs[] = { 0, 0, 0.1, 1 };
 
     /* Koeficijenti difuzne refleksije materijala. */
-    GLfloat diffuse_coeffs[] = { 0.7, 0.7, 0.7, 1 };
+    GLfloat diffuse_coeffs[] = { 0, 0.8, 0, 1 };
 
     /* Koeficijenti spekularne refleksije materijala. */
     GLfloat specular_coeffs[] = { 0, 0, 0, 0 };
 
     /* Koeficijent glatkosti materijala. */
     GLfloat shininess = 30;
+    GLfloat yellow[] = {1,0.8,0.3,1};
     
     glMaterialfv(GL_FRONT, GL_AMBIENT, ambient_coeffs);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse_coeffs);
@@ -117,7 +156,7 @@ void draw_hall(){
     glMaterialf(GL_FRONT, GL_SHININESS, shininess);
     /* behind basket */
     glPushMatrix();
-    glTranslatef(-10,0,0);
+    glTranslatef(-8.4,0,0);
     glBegin(GL_POLYGON);
     glNormal3f(1,0,0);
     glVertex3f(0,0,15);
@@ -129,7 +168,7 @@ void draw_hall(){
     
     /* front of basket */
     glPushMatrix();
-    glTranslatef(20,0,0);
+    glTranslatef(25,0,0);
     glBegin(GL_POLYGON);
     glNormal3f(1,0,0);
     glVertex3f(0,0,15);
@@ -138,11 +177,49 @@ void draw_hall(){
     glVertex3f(0,0,-15);
     glEnd();
     glPopMatrix();
+    /* left wall */
+    glPushMatrix();
+    glBegin(GL_POLYGON);
+    glNormal3f(0,0,1);
+    glVertex3f(-10,0,15);
+    glVertex3f(-10,15,15);
+    glVertex3f(25,15,15);
+    glVertex3f(25,0,15);
+
+    glEnd();
+    glPopMatrix();
+
+    /* right wall */
+    glPushMatrix();
+    glBegin(GL_POLYGON);
+    glNormal3f(0,0,1);
+    glVertex3f(-10,0,-15);
+    glVertex3f(-10,15,-15);
+    glVertex3f(25,15,-15);
+    glVertex3f(25,0,-15);
+
+    glEnd();
+
+    glPopMatrix();
+    /* floor */
+    glPushMatrix();
+    glMaterialfv(GL_FRONT,GL_DIFFUSE,yellow);
+    glMaterialfv(GL_FRONT,GL_AMBIENT,yellow);
+    glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
+    glBegin(GL_POLYGON);
+    glNormal3f(0,1,0);
+    glVertex3f(-10,-0.2,17);
+    glVertex3f(-10,-0.2,-17);
+    glVertex3f(25,-0.2,-17);
+    glVertex3f(25,-0.2,17);
+    glEnd();
+    glPopMatrix();
 
 
     /* line for 3pt */
     glPushMatrix();
     glDisable(GL_LIGHTING);
+    glLineWidth(4);
     float r=6.75;
     float u;
     glColor3f(0,0,0);
@@ -150,6 +227,7 @@ void draw_hall(){
     for(u=0;u<=PI;u+=PI/1000){
        glVertex3f(r*sin(u),0,r*cos(u)); 
     } 
+    glLineWidth(1);
     glEnd();
     glEnable(GL_LIGHTING);
 
@@ -184,14 +262,14 @@ void set_position_of_camera(int number_of_position){
 }
 
 void draw_ball(int number_of_position){
-    /* jednacine kosog hica */
+    /* equation of projectile motion */
     x_t = -v0*t*cos(angle);
     y_t = v0*t*sin(angle) - G*t*t/2;
     
     
-    /* loptica */
+    /* ball */
     glPushMatrix();
-        GLfloat orange_color[]={1, 0.3, 0.3, 1};
+        GLfloat orange_color[]={1, 0.278, 0.102, 1};
         GLfloat shininess_of_ball = 60;
         glMaterialfv(GL_FRONT,GL_AMBIENT,orange_color);
         glMaterialfv(GL_FRONT,GL_DIFFUSE,orange_color);
@@ -203,20 +281,20 @@ void draw_ball(int number_of_position){
                 if(animation_ongoing){
                     glTranslatef(x_t, y_t, -z_positive*x_t);
                 }
-                glTranslatef(p_of_camera.x-1,p_of_camera.y-.2,p_of_camera.z+z_positive);
+                glTranslatef(p_of_camera.x-1,p_of_camera.y-.3,p_of_camera.z+z_positive);
                 break;
             case 3:
                 if(animation_ongoing){
                     glTranslatef(x_t, y_t, 0);
                 }
-                glTranslatef(p_of_camera.x-1,p_of_camera.y-.2,p_of_camera.z);
+                glTranslatef(p_of_camera.x-1,p_of_camera.y-.3,p_of_camera.z);
                 break;
             case 5:
             case 1:
                 if(animation_ongoing){
                     glTranslatef(0, y_t, -x_t*z_positive);
                 }
-                glTranslatef(p_of_camera.x,p_of_camera.y-.2,p_of_camera.z+z_positive);
+                glTranslatef(p_of_camera.x,p_of_camera.y-.3,p_of_camera.z+z_positive);
         }
         glutSolidSphere(.3, 50, 50);
     glPopMatrix();
