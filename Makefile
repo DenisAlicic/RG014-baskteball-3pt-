@@ -4,7 +4,7 @@ CFLAGS  = -c -Wall -I/usr/X11R6/include -I/usr/pkg/include
 LDFLAGS = -L/usr/X11R6/lib -L/usr/pkg/lib
 LDLIBS  = -lglut -lGLU -lGL -lm
 
-$(PROGRAM): main.o scene.o light.o
+$(PROGRAM): main.o scene.o light.o callback_functions.o
 	$(CC) $(LDFLAGS) -o $(PROGRAM) $^ $(LDLIBS)
 	
 .PHONY: clean dist
