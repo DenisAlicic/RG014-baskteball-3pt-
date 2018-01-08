@@ -18,7 +18,7 @@ Basketball 3PT :basketball:
 
 ## :video_game: Controls 
 
-| **Key**  | ** Action** |
+| **Key**  | **Action** |
 |------|--------|
 |s    | Shoot  |
 |1 - 5| Change position |
