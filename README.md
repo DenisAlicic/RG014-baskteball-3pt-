@@ -2,6 +2,7 @@
 Basketball 3PT :basketball: 
 ==============
 
+## Shooting on the basket from the first face. Table blink when basket is scored.
 
 ## Screenshot
 
@@ -26,5 +27,3 @@ Basketball 3PT :basketball:
 |  * | Start velocity ++ |
 |  / | Start velocity - -|
 | Esc| Exit |
-
-

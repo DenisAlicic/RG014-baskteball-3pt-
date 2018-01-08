@@ -121,7 +121,7 @@ void on_timer(int id)
 
 	/* Animation is stopped when ball fals down or x coordinates iz less then 0 */
 	if (((number_of_position == 2 || number_of_position == 4)
-	     && x_t < -3.77) || (y_t + p_of_camera.y) < 1) {
+	     && x_t < (-p_of_camera.x + 1)) || (y_t + p_of_camera.y) < 1) {
 		animation_ongoing = 0;
 		t = 0;
 	} else

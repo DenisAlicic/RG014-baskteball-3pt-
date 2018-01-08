@@ -12,12 +12,14 @@ extern float angle;
 extern float v0;
 extern Position p_of_camera;
 extern int z_positive;
+extern int number_of_position;
 void draw_basket()
 {
 
 	GLfloat white_color[] = { 1, 1, 1, 1 };
 	GLfloat black_color[] = { 0.0, 0.0, 0, 1 };
 	GLfloat orange_color[] = { 0.75, 0.25, 0, 1 };
+	GLfloat red_color[] = { 1, 0, 0, 1 };
 	/*
 	 * Creation of a pillar1 and posting to the position
 	 */
@@ -28,7 +30,7 @@ void draw_basket()
 	glMaterialfv(GL_FRONT, GL_AMBIENT, black_color);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, black_color);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, black_color);
-	glTranslatef(-2, 1.525, -0.3);
+	glTranslatef(-1.95, 1.525, -0.3);
 	glScalef(.2, 3.05, .2);
 	glutSolidCube(1);
 	glPopMatrix();
@@ -40,7 +42,7 @@ void draw_basket()
 	glMaterialfv(GL_FRONT, GL_AMBIENT, black_color);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, black_color);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, black_color);
-	glTranslatef(-2, 1.525, 0.3);
+	glTranslatef(-1.95, 1.525, 0.3);
 	glScalef(.2, 3.05, .2);
 	glutSolidCube(1);
 	glPopMatrix();
@@ -67,11 +69,17 @@ void draw_basket()
 
 	/* Table */
 	glPushMatrix();
-	GLfloat shininess_of_table = 40;
+	GLfloat shininess_of_table = 90;
 	glMaterialfv(GL_FRONT, GL_AMBIENT, white_color);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, white_color);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, white_color);
 	glMaterialf(GL_FRONT, GL_SHININESS, shininess_of_table);
+	if (animation_ongoing && score() == 1) {
+		glMaterialfv(GL_FRONT, GL_AMBIENT, red_color);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, red_color);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, red_color);
+		glMaterialf(GL_FRONT, GL_SHININESS, shininess_of_table);
+	}
 	glTranslatef(-1, 3.50, 0);
 	glScalef(0.2, 1.8, 1.8);
 
@@ -147,7 +155,7 @@ void draw_hall()
 	glMaterialf(GL_FRONT, GL_SHININESS, shininess);
 	/* Behind basket */
 	glPushMatrix();
-	glTranslatef(-8.4, 0, 0);
+	glTranslatef(-8.5, 0, 0);
 	glBegin(GL_POLYGON);
 	glNormal3f(1, 0, 0);
 	glVertex3f(0, 0, 15);
@@ -190,6 +198,19 @@ void draw_hall()
 	glVertex3f(25, 0, -15);
 	glEnd();
 	glPopMatrix();
+	/* Siling */
+	glPushMatrix();
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, green);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, green);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, green);
+	glBegin(GL_POLYGON);
+	glNormal3f(0, 1, 0);
+	glVertex3f(-10, 15, 17);
+	glVertex3f(-10, 15, -17);
+	glVertex3f(25, 15, -17);
+	glVertex3f(25, 15, 17);
+	glEnd();
+	glPopMatrix();
 
 	/* Floor */
 	glPushMatrix();
@@ -198,10 +219,10 @@ void draw_hall()
 	glMaterialfv(GL_FRONT, GL_SPECULAR, orange);
 	glBegin(GL_POLYGON);
 	glNormal3f(0, 1, 0);
-	glVertex3f(-10, -0.2, 17);
-	glVertex3f(-10, -0.2, -17);
-	glVertex3f(25, -0.2, -17);
-	glVertex3f(25, -0.2, 17);
+	glVertex3f(-10, -0.1, 17);
+	glVertex3f(-10, -0.1, -17);
+	glVertex3f(25, -0.1, -17);
+	glVertex3f(25, -0.1, 17);
 	glEnd();
 	glPopMatrix();
 
@@ -282,6 +303,36 @@ void set_position_of_camera(int number_of_position)
 
 }
 
+/* Function returns 1 if ball is enough close to the hoop
+ * or 0 if not */
+int score()
+{
+
+	switch (number_of_position) {
+
+	case 2:
+	case 4:
+		if (x_t < -3 && x_t > -3.3 && y_t < 1.75 && y_t > 1) {
+			return 1;
+		} else {
+			return 0;
+		}
+		break;
+	case 1:
+	case 3:
+	case 5:
+		if (x_t < -5 && x_t > -5.75 && y_t < 1.75 && y_t > 1) {
+			return 1;
+		} else {
+			return 0;
+		}
+		break;
+	default:
+		return 0;
+	}
+
+}
+
 void draw_ball(int number_of_position)
 {
 	/* Equation of projectile motion */
@@ -290,7 +341,7 @@ void draw_ball(int number_of_position)
 	/* Ball */
 	glPushMatrix();
 	GLfloat orange_color[] = { 1, 0.278, 0.102, 1 };
-	GLfloat shininess_of_ball = 60;
+	GLfloat shininess_of_ball = 90;
 	glMaterialfv(GL_FRONT, GL_AMBIENT, orange_color);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, orange_color);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, orange_color);

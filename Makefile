@@ -13,5 +13,5 @@ clean:
 	-rm *.o $(PROGRAM) 
 
 dist: clean
-	-tar -czv -C .. -f ../$(PROGRAM).tar.gz RG014-basketball-3pt-
+	-tar -chvj -C .. -f ../$(PROGRAM).tar.bz2 $(PROGRAM)	
 

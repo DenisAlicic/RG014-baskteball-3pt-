@@ -9,8 +9,8 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
 
 	/* Creation of window */
-	glutInitWindowSize(600, 600);
-	glutInitWindowPosition(100, 100);
+	glutInitWindowSize(900, 650);
+	glutInitWindowPosition(200, 100);
 	glutCreateWindow("3pt_contest!");
 
 	/* Registration of callback function */
