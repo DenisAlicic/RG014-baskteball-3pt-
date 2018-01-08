@@ -5,7 +5,7 @@ Basketball 3PT :basketball:
 
 ## Screenshot
 
-![Image](screnshoots/photo4.png)
+![3pt](https://raw.githubusercontent.com/MATF-RG17/RG014-baskteball-3pt-/master/screenshots/photo4.png)
 
 ## Installation
 :warning: Requirements: Freeglut
@@ -15,9 +15,9 @@ Basketball 3PT :basketball:
 3. Type `make`
 4. Run with `./3pt`
 
-## Controls 
+## :video_game: Controls 
 
-|Key  | Action |
+| **Key**  | ** Action** |
 |------|--------|
 |s    | Shoot  |
 |1 - 5| Change position |
