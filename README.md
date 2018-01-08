@@ -1,5 +1,5 @@
 # RG014-baskteball-3pt-
-Basketball 3PT 
+Basketball 3PT :basketball: 
 ==============
 
 
@@ -8,7 +8,7 @@ Basketball 3PT
 ![Image](screnshoots/photo4.png)
 
 ## Installation
- Requirements: Freeglut
+:warning: Requirements: Freeglut
 
 1. Clone this repository somewhere on your machine
 2. Go to that directory
