@@ -349,6 +349,7 @@ void draw_ball(int number_of_position)
 	switch (number_of_position) {
 	case 2:
 	case 4:
+        /* Move the ball if is necessary */
 		if (animation_ongoing) {
 			glTranslatef(x_t, y_t, -z_positive * x_t);
 		}
