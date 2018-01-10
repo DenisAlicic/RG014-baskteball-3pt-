@@ -12,7 +12,7 @@ extern float angle;
 extern float v0;
 extern Position p_of_camera;
 extern int z_positive;
-extern int number_of_position;
+extern Position_of_shooting p_shoot;
 void draw_basket()
 {
 
@@ -269,33 +269,33 @@ void draw_hall()
 	glPopMatrix();
 }
 
-void set_position_of_camera(int number_of_position)
+void set_position_of_camera(Position_of_shooting p_shoot)
 {
 
 	p_of_camera.y = 1.95;
-	switch (number_of_position) {
+	switch (p_shoot) {
 
-	case 1:
+	case Right_corner:
 		p_of_camera.x = 0;
 		p_of_camera.z = -6.75;
 		z_positive = 1;
 		break;
-	case 2:
+	case Right_side:
 		p_of_camera.x = 4.77;
 		p_of_camera.z = -4.77;
 		z_positive = 1;
 		break;
-	case 3:
+	case Center:
 		p_of_camera.x = 6.75;
 		p_of_camera.z = 0;
 		z_positive = 1;
 		break;
-	case 4:
+	case Left_side:
 		p_of_camera.x = 4.77;
 		p_of_camera.z = 4.77;
 		z_positive = -1;
 		break;
-	case 5:
+	case Left_corner:
 		p_of_camera.x = 0;
 		p_of_camera.z = 6.75;
 		z_positive = -1;
@@ -308,19 +308,19 @@ void set_position_of_camera(int number_of_position)
 int score()
 {
 
-	switch (number_of_position) {
+	switch (p_shoot) {
 
-	case 2:
-	case 4:
+	case Right_side:
+    case Left_side:
 		if (x_t < -3 && x_t > -3.3 && y_t < 1.75 && y_t > 1) {
 			return 1;
 		} else {
 			return 0;
 		}
 		break;
-	case 1:
-	case 3:
-	case 5:
+	case Right_corner:
+	case Center:
+	case Left_corner:
 		if (x_t < -5 && x_t > -5.75 && y_t < 1.75 && y_t > 1) {
 			return 1;
 		} else {
@@ -333,7 +333,7 @@ int score()
 
 }
 
-void draw_ball(int number_of_position)
+void draw_ball(Position_of_shooting p_shoot)
 {
 	/* Equation of projectile motion */
 	x_t = -v0 * t * cos(angle);
@@ -346,9 +346,9 @@ void draw_ball(int number_of_position)
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, orange_color);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, orange_color);
 	glMaterialf(GL_FRONT, GL_SHININESS, shininess_of_ball);
-	switch (number_of_position) {
-	case 2:
-	case 4:
+	switch (p_shoot) {
+	case Right_side:
+	case Left_side:
         /* Move the ball if is necessary */
 		if (animation_ongoing) {
 			glTranslatef(x_t, y_t, -z_positive * x_t);
@@ -356,15 +356,15 @@ void draw_ball(int number_of_position)
 		glTranslatef(p_of_camera.x - 1, p_of_camera.y - .3,
 			     p_of_camera.z + z_positive);
 		break;
-	case 3:
+	case Center:
 		if (animation_ongoing) {
 			glTranslatef(x_t, y_t, 0);
 		}
 		glTranslatef(p_of_camera.x - 1, p_of_camera.y - .3,
 			     p_of_camera.z);
 		break;
-	case 5:
-	case 1:
+	case Left_corner:
+	case Right_corner:
 		if (animation_ongoing) {
 			glTranslatef(0, y_t, -x_t * z_positive);
 		}

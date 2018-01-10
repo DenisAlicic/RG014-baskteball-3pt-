@@ -8,7 +8,7 @@
 
 /* Global variables */
 Position p_of_camera;
-int number_of_position = 2;
+Position_of_shooting p_shoot = Right_side;
 int animation_ongoing = 0;
 float angle = PI / 3;
 float v0 = 8;
@@ -19,7 +19,7 @@ int z_positive = 1;
 /* Dimension of window */
 int window_width, window_height;
 
-extern void set_position_of_camera(int number_of_position);
+extern void set_position_of_camera(Position_of_shooting p_shoot);
 void on_keyboard(unsigned char key, int x, int y)
 {
 	switch (key) {
@@ -35,14 +35,27 @@ void on_keyboard(unsigned char key, int x, int y)
 		}
 		break;
 		/* Setting up position of shooting */
+        //TODO uradi hvatanje pozicije
 	case '1':
+        p_shoot = Right_corner;
+        glutPostRedisplay();
+        break;
 	case '2':
+        p_shoot = Right_side;
+        glutPostRedisplay();
+        break;
 	case '3':
+        p_shoot = Center;
+        glutPostRedisplay();
+        break;
 	case '4':
+        p_shoot = Left_side;
+        glutPostRedisplay();
+        break;
 	case '5':
-		number_of_position = key - '0';
-		glutPostRedisplay();
-		break;
+        p_shoot = Left_corner;
+        glutPostRedisplay();
+        break;
 		/* Increasing of the angle */
 	case '+':
 		if (!animation_ongoing) {
@@ -101,14 +114,14 @@ void on_display(void)
 	/* Setting up point of view */
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	set_position_of_camera(number_of_position);
+	set_position_of_camera(p_shoot);
 
 	gluLookAt(p_of_camera.x, p_of_camera.y, p_of_camera.z,
 		  0, p_of_camera.y, 0, 0, 1, 0);
 	set_light();
 	draw_hall();
 	draw_basket();
-	draw_ball(number_of_position);
+	draw_ball(p_shoot);
 
 	/* Show this picture */
 	glutSwapBuffers();
@@ -120,13 +133,13 @@ void on_timer(int id)
 		return;
 
 	/* Animation is stopped when ball fals down or x coordinates iz less then 0 */
-	if (((number_of_position == 2 || number_of_position == 4)
+	if (((p_shoot == Right_side || p_shoot == Left_side)
 	     && x_t < (-p_of_camera.x + 1)) || (y_t + p_of_camera.y) < 1) {
 		animation_ongoing = 0;
 		t = 0;
 	} else
-	    if (((number_of_position == 1 || number_of_position == 3
-		  || number_of_position == 5) && x_t < -5.75)
+	    if (((p_shoot == Right_corner || p_shoot == Center
+		  || p_shoot == Left_corner) && x_t < -5.75)
 		|| (y_t + p_of_camera.y) < 1) {
 		animation_ongoing = 0;
 		t = 0;
