@@ -6,7 +6,7 @@ Basketball 3PT :basketball:
 
 ## Screenshot
 
-![3pt](https://raw.githubusercontent.com/MATF-RG17/RG014-baskteball-3pt-/master/screenshots/photo4.png)
+![3pt](https://raw.githubusercontent.com/MATF-RG17/RG014-baskteball-3pt-/master/screenshots/photo5.png)
 
 ## Installation
 :warning: Requirements: Freeglut
