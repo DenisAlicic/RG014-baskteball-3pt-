@@ -1,5 +1,4 @@
 #include "light.h"
-#include "variables.h"
 #include <stdlib.h>
 #include <GL/glut.h>
 
