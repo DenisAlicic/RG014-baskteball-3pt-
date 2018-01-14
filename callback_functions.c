@@ -176,8 +176,8 @@ void on_timer(int id)
 		    ((p_shoot != Center && x_t < -3.3
 		      && x_t > -(p_of_camera.x - 1))
 		     || (p_shoot == Center && x_t < -5.35
-			 && x_t > -(p_of_camera.x - 1)))
-		    && y_t > 1.05 && y_t < 2.5) {
+			 && x_t > -(p_of_camera.x - 0.7)))
+		    && y_t > 1.05 && y_t < 3) {
 			reflection = 1;
 			/* When ball kick the table we catch x (and z) and y coordinates of ball */
 			animation_ongoing = 0;

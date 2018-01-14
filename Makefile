@@ -19,7 +19,7 @@ callback_functions.o: callback_functions.c callback_functions.h variables.h
 light.o: light.c light.h
 	$(CC) $(CFLAGS) -o $@ $<
 
-.PHONY: clean dist author
+.PHONY: clean dist 
 
 clean:
 	-rm *.o $(PROGRAM) 
