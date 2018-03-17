@@ -13,8 +13,9 @@ Basketball 3PT :basketball:
 
 1. Clone this repository somewhere on your machine
 2. Go to that directory
-3. Type `make`
-4. Run with `./3pt`
+3. ```cd src/```
+4. Type `make`
+5. Run with `./3pt`
 
 ## :video_game: Controls 
 
