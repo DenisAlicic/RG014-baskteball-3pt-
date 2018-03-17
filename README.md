@@ -28,3 +28,9 @@ Basketball 3PT :basketball:
 |  * | Start velocity ++ |
 |  / | Start velocity - -|
 | Esc| Exit |
+
+## TODO
+
+-Add some text 
+-Add 2 modes (Training and Competition)
+-Add point counter
